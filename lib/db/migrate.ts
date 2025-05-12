@@ -20,7 +20,7 @@ async function runMigration() {
         console.log("All migrations are successfully completed")
     }
     catch(error) {
-        console.log("Migrations failed")
+        console.log("Migrations failed. Missing 'DATABASE_URL' in .env", error)
         process.exit(1)
     }
 }
