@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
         }
 
         const [newFile] = await db.insert(files).values(fileData).returning();
-
+        return NextResponse.json({message: "Succesfully uploaded file"}, {status: 200});        
 
     } catch (error) {
         return NextResponse.json({error: "Failed to upload file"}, {status: 401});        

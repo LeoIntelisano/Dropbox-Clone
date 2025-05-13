@@ -14,7 +14,7 @@ export const files = pgTable("files", {
     //storage info
     fileUrl: text("file_url").notNull(), // url to access file
     thumbnailUrl: text("thumbnail_url"),
-    imagekitId: text("imagekit_id").notNull(), 
+    imagekitId: text("imagekit_id"), 
 
     //ownership
     userId: text("user_id").notNull(),
@@ -26,7 +26,7 @@ export const files = pgTable("files", {
     isTrash: boolean("is_trash").default(false).notNull(),
 
     //Timestamps
-    createdAt: timestamp("creaded_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
@@ -47,5 +47,6 @@ export const fileRelations = relations(files, ({one, many}) => ({
 }));
 
 // type definitions
-export const File = typeof files.$inferSelect;
-export const NewFile = typeof files.$inferInsert;
+;
+export type File = typeof files.$inferSelect;
+export type NewFile = typeof files.$inferInsert;
