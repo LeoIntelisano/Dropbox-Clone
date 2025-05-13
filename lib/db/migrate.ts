@@ -5,24 +5,24 @@ import { neon } from "@neondatabase/serverless"
 
 import * as dotenv from "dotenv"
 
-dotenv.config({path: ".env.local"})
+dotenv.config({path: ".env.local"});
 
 if(!process.env.DATABASE_URL) {
-    throw new Error("Database url not set in .env.local")
+    throw new Error("Database url not set in .env.local");
 }
 
 async function runMigration() {
     try {
-        const sql = neon(process.env.DATABASE_URL!)
-        const db = drizzle(sql)
+        const sql = neon(process.env.DATABASE_URL!);
+        const db = drizzle(sql);
 
-        await migrate(db, {migrationsFolder: "./drizzle"})
-        console.log("All migrations are successfully completed")
+        await migrate(db, {migrationsFolder: "./drizzle"});
+        console.log("All migrations are successfully completed");
     }
     catch(error) {
-        console.log("Migrations failed. Missing 'DATABASE_URL' in .env", error)
-        process.exit(1)
+        console.log("Migrations failed. Missing 'DATABASE_URL' in .env", error);
+        process.exit(1);
     }
-}
+};
 
-runMigration()
+runMigration();

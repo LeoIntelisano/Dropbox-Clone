@@ -17,7 +17,7 @@ import {Alert} from "@heroui/alert";
 import {Input} from "@heroui/input";
 import {Button, ButtonGroup} from "@heroui/button";
 
-import { AiFillEyeInvisible, AiFillEye, AiOutlineCheckCircle, AiFillLock  } from "react-icons/ai";
+import { AiFillEyeInvisible, AiFillEye, AiOutlineCheckCircle, AiFillLock, AiFillMail  } from "react-icons/ai";
 import Link from "next/link"
 
 export default function SignUpForm() {
@@ -43,61 +43,61 @@ export default function SignUpForm() {
             password: "",
             passwordConfirmation: "",
         },
-    })
+    });
 
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
-        if (!isLoaded) return
-        setIsSubmitting(true)
-        setAuthError(null)
+        if (!isLoaded) return;
+        setIsSubmitting(true);
+        setAuthError(null);
 
         try {
             await signUp.create({
                 emailAddress: data.email,
                 password: data.password
-            })
+            });
             await signUp.prepareEmailAddressVerification({
                 strategy: "email_code"
-            })
-            setVerifying(true)
+            });
+            setVerifying(true);
         } catch (error: any) {
-            console.error("Signup error: ", error)
+            console.error("Signup error: ", error);
             setAuthError(
                 error.errors?.[0]?.message || "An error occured during signup. Please try again"
-            )
+            );
             
         } finally {
-            setIsSubmitting(false)
-        }
-    }
+            setIsSubmitting(false);
+        };
+    };
     
     const handleVerificationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if(!isLoaded || !signUp) return
-        setIsSubmitting(true)
-        setAuthError(null)
+        e.preventDefault();
+        if(!isLoaded || !signUp) return;
+        setIsSubmitting(true);
+        setAuthError(null);
         try {
             const result = await signUp.attemptEmailAddressVerification({
                 code: verificationCode
-            })
+            });
             // TODO: console.log(result);
             if (result.status === "complete") {
-                await setActive({session: result.createdSessionId})
-                router.push("/dashboard")
+                await setActive({session: result.createdSessionId});
+                router.push("/dashboard");
             } else {
-                console.error("Verification incomplete", result)
+                console.error("Verification incomplete", result);
                 setVerificationError(
                     "Verification could not be completed"
-                )
+                );
             }
         } catch (error: any) {
-            console.error("Verification incomplete", error)
+            console.error("Verification incomplete", error);
             setVerificationError(
                 error.errors?.[0]?.message || "An error occured during signup. Please try again"
-            )
+            );
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
         }
-    }
+    };
 
     if (verifying) {
         return (
@@ -169,7 +169,7 @@ export default function SignUpForm() {
             </Card>
 
             
-        )
+        );
     }
     return (
         <Card className="w-full max-w-md border border-default-200 bg-default-50 shadow-xl">
@@ -205,7 +205,7 @@ export default function SignUpForm() {
                             id="email"
                             type="email"
                             placeholder="your.email@example.com"
-                            //startContent:
+                            startContent={<AiFillMail className="h-4 w-4 text-default-500" />}
                             isInvalid={!!errors.email}
                             errorMessage={errors.email?.message}
                             {...register("email")}
@@ -309,5 +309,5 @@ export default function SignUpForm() {
                 </p>
             </CardFooter>
         </Card>
-    )
+    );
 }
