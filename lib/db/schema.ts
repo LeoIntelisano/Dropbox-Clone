@@ -13,7 +13,8 @@ export const files = pgTable("files", {
 
     //storage info
     fileUrl: text("file_url").notNull(), // url to access file
-    thumbnailUrl: text("thumbnail_url"), 
+    thumbnailUrl: text("thumbnail_url"),
+    imagekitId: text("imagekit_id").notNull(), 
 
     //ownership
     userId: text("user_id").notNull(),
