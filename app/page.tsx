@@ -12,7 +12,7 @@ export default function LoginPage() {
 
         <div className="flex flex-col gap-4">
           <Link href="/sign-in">
-            <Button color="primary" className="w-full">
+            <Button color="secondary" className="w-full">
               Sign In
             </Button>
           </Link>
