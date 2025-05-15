@@ -46,6 +46,7 @@ export async function PATCH(
         const updatedFile = updatedFiles[0];
         return NextResponse.json(updatedFile);
     } catch (error) {
+        console.error(error);
         return NextResponse.json({error: "Failed to update the file"}, {status: 500});
     }
 }

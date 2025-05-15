@@ -46,6 +46,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(userFiles);
     } catch (error) {
+        console.error(error);
         return NextResponse.json({error: "Error fetching files"}, {status: 500});
     }
 }

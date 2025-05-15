@@ -54,9 +54,10 @@ export default function SignInForm(){
                 setAuthError("Sign in error");
             }
 
-        } catch (error: any) {
+        } catch (error) {
+            console.error(error);
             setAuthError(
-                error.errors?.[0]?.message || "An error occured during sign in process"
+                "An error occured during sign in process"
             );
         } finally {
             setIsSubmitting(false);
@@ -155,7 +156,7 @@ export default function SignInForm(){
 
             <CardFooter className="flex justify-center py-4">
                 <p className="text-sm text-default-600">
-                    Don't have an account?{" "}
+                    Don&#39;t have an account?
                     <Link
                         href={"/sign-up"}
                         className="text-primary hover:underline font-medium"

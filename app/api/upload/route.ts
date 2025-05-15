@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json(newFile)
     } catch (error) {
+        console.error(error)
         return NextResponse.json({error: "Failed to save info to database"}, {status: 500});
     }
 }

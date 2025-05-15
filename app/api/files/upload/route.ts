@@ -45,6 +45,9 @@ export async function POST(request: NextRequest) {
                         eq(files.isFolder, true)
                     )
                 );
+            if (!parentFolder) {
+                return NextResponse.json({error: "Parent folder not found"}, {status: 401}); 
+            }
         }
         // totally optional based on flow
         if (!parentId) {
@@ -89,10 +92,11 @@ export async function POST(request: NextRequest) {
             isTrash: false,
         }
 
-        const [newFile] = await db.insert(files).values(fileData).returning();
+        await db.insert(files).values(fileData).returning();
         return NextResponse.json({message: "Succesfully uploaded file"}, {status: 200});        
 
     } catch (error) {
+        console.error(error);
         return NextResponse.json({error: "Failed to upload file"}, {status: 401});        
     }
 }

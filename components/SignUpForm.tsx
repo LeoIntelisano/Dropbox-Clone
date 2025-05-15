@@ -15,7 +15,7 @@ import {Card, CardBody, CardFooter, CardHeader} from "@heroui/card";
 import {Divider} from "@heroui/divider";
 import {Alert} from "@heroui/alert";
 import {Input} from "@heroui/input";
-import {Button, ButtonGroup} from "@heroui/button";
+import {Button} from "@heroui/button";
 
 import { AiFillEyeInvisible, AiFillEye, AiOutlineCheckCircle, AiFillLock, AiFillMail  } from "react-icons/ai";
 import Link from "next/link"
@@ -59,10 +59,10 @@ export default function SignUpForm() {
                 strategy: "email_code"
             });
             setVerifying(true);
-        } catch (error: any) {
+        } catch (error) {
             console.error("Signup error: ", error);
             setAuthError(
-                error.errors?.[0]?.message || "An error occured during signup. Please try again"
+               "An error occured during signup. Please try again"
             );
             
         } finally {
@@ -89,10 +89,10 @@ export default function SignUpForm() {
                     "Verification could not be completed"
                 );
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error("Verification incomplete", error);
             setVerificationError(
-                error.errors?.[0]?.message || "An error occured during signup. Please try again"
+                "An error occured during signup. Please try again"
             );
         } finally {
             setIsSubmitting(false);
@@ -107,7 +107,7 @@ export default function SignUpForm() {
                         Verify Your Email
                     </h1>
                     <p className="text-default-500 text-center">
-                        We've sent a verification code to your email
+                        We&#39;ve sent a verification code to your email
                     </p>
                  </CardBody>
                  <Divider />
@@ -149,7 +149,7 @@ export default function SignUpForm() {
                     </form>
                     <div className="mt-6 text-center">
                         <p className="text-sm text-default-500">
-                            Didn't receive a code?{" "}
+                            Didn&#39;t receive a code?{" "}
                             <button
                                 onClick={async () => {
                                     if (signUp) {

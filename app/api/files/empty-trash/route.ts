@@ -2,10 +2,10 @@ import { db } from "@/lib/db";
 import { files } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
-import { deleteRecursively } from "../[fileId]/delete/route";
+import { NextResponse } from "next/server";
+import deleteRecursively from "@/utils/deleteRecursively";
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
     try {const {userId} = await auth();
         if (!userId) {
             return NextResponse.json({error: "Unauthorized"}, {status: 401});
@@ -24,7 +24,7 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({message: "No files in trash"}, {status: 200});
         }
         let deleteCount = 0;
-        let deleteName: string[] = [];
+        const deleteName: string[] = [];
         for (const file of trashedFiles) {
             const response = await deleteRecursively(file.id, userId);
             if (response.status !== 200) {
@@ -38,6 +38,7 @@ export async function DELETE(request: NextRequest) {
         }
         return NextResponse.json({ message: `Trash emptied successfully deleted ${deleteCount} file(s)` }, { status: 200 });
     } catch (error) {
+        console.error(error);
         return NextResponse.json({error: "Error emptying the trash can"}, {status: 500});
     }
 }

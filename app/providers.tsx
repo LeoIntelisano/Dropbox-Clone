@@ -54,7 +54,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
 
   return (
-    
+    <HeroUIProvider navigate={router.push}>
       <ImageKitProvider
         authenticator={authenticator}
         publicKey={process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || ""}
@@ -65,5 +65,6 @@ export function Providers({ children, themeProps }: ProvidersProps) {
           <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
         </ImageKitAuthContext.Provider>
       </ImageKitProvider>
+    </HeroUIProvider>
   );
 }
